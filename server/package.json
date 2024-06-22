@@ -1,0 +1,25 @@
+{
+  "name": "readme",
+  "version": "0.1.0",
+  "author": "Gargi, Jai",
+  "description": "Readme generator BE",
+  "main": "app/index.js",
+  "scripts": {
+    "start": "node app/index.js",
+    "dev": "nodemon app/index.js"
+  },
+  "dependencies": {
+    "@google/generative-ai": "^0.11.1",
+    "axios": "^1.7.2",
+    "cors": "^2.8.5",
+    "express": "^4.19.2",
+    "dotenv": "^16.4.5"
+  },
+  "devDependencies": {
+  },
+  "nodemonConfig": {
+    "verbose": false,
+    "ignore": [],
+    "delay": "100"
+  }
+}
