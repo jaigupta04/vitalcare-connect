@@ -1,8 +1,8 @@
 {
     "rewrites": [
       {
-        "source": "/api/generate",
-        "destination": "https://readme-gen-be.vercel.app/api/generate/"
+        "source": "/api/*",
+        "destination": "https://readme-gen-be.vercel.app/api/*/"
       }
     ]
   }
