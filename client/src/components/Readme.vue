@@ -96,10 +96,10 @@ export default {
 
   methods: {
     async submit() {
-      // if (this.githubId === null || this.repoName === null || this.branchName === null || this.fileName === null) {
-      //   alert('Please Fill Amount Properly.');
-      //   return; 
-      // }
+      if (this.githubId === null || this.repoName === null || this.branchName === null || this.fileName === null) {
+        alert('Please Fill Amount Properly.');
+        return; 
+      }
 
       console.log('jai')
 
@@ -110,13 +110,12 @@ export default {
       }, 20000); 
 
       try {
-        // const resp = await this.doGet('/api/generate', {
-        //   githubId: this.githubId,
-        //   repoName: this.repoName,
-        //   branchName: this.branchName,
-        //   fileName: this.fileName,
-        // });
-        const resp = await this.doGet('/api/add');
+        const resp = await this.doGet('/api/generate', {
+          githubId: this.githubId,
+          repoName: this.repoName,
+          branchName: this.branchName,
+          fileName: this.fileName,
+        });
 
         console.log('gupta')
 
