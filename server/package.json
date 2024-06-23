@@ -3,10 +3,10 @@
   "version": "0.1.0",
   "author": "Gargi, Jai",
   "description": "Readme generator BE",
-  "main": "app/index.js",
+  "main": "index.js",
   "scripts": {
-    "start": "node app/index.js",
-    "dev": "nodemon app/index.js"
+    "start": "node index.js",
+    "dev": "nodemon index.js"
   },
   "dependencies": {
     "@google/generative-ai": "^0.11.1",
