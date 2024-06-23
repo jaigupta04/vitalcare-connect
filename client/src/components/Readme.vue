@@ -107,7 +107,7 @@ export default {
 
       this.timeout = setTimeout(() => {
         alert('Request timed out.');
-      }, 10000); 
+      }, 20000); 
 
       try {
         const resp = await this.doGet('/api/generate', {

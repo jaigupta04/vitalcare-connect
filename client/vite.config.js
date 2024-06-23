@@ -13,12 +13,7 @@ export default defineConfig({
   },
   server: {
     proxy: {
-      '/api': 'https://readme-be.vercel.app',
-      // {
-      //   target: 'https://readme-be.vercel.app',
-      //   changeOrigin: true,
-      //   rewrite: (path) => path.replace('/api/', '/')
-      // },
+      '/api': 'https://readme-gen-be.vercel.app',
     }
   }
 });
