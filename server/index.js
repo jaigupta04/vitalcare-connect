@@ -12,7 +12,7 @@ const corsOptions = {
 app.use(express.json());
 app.use(cors(corsOptions));
 
-app.get('/add', async (req, res) => {
+app.get('/api/add', async (req, res) => {
   res.send('hi');
 })
 
