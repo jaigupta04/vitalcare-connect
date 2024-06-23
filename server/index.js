@@ -10,7 +10,7 @@ const corsOptions = {
 };
 
 app.use(express.json());
-app.use(cors());
+app.use(cors(corsOptions));
 
 app.get('/add', async (req, res) => {
   res.send('hi');
