@@ -2,7 +2,6 @@
   "name": "readme-vue",
   "version": "0.1.0",
   "description": "Readme generator FE",
-  "private": true,
   "scripts": {
     "dev": "vite --port 1080",
     "build": "vite build",
