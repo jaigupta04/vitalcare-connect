@@ -35,7 +35,7 @@
       <v-divider color="white"></v-divider>
 
       <div class="button-wrapper white-text-field">
-        <v-btn type="submit" color="#4969ED" rounded>
+        <v-btn type="submit" color="#26a641" rounded>
           Generate README
         </v-btn>
       </div>
@@ -56,15 +56,11 @@
       </v-card>
     </v-dialog>
 
-    <v-overlay
-      :model-value="loading"
-      class="align-center justify-center"
-    >
-      <v-progress-circular
-        color="primary"
-        size="64"
-        indeterminate
-      ></v-progress-circular>
+    <v-overlay :model-value="loading" class="loading-overlay">
+      <div class="loading-content">
+        <v-progress-circular color="#26a641" size="64" indeterminate></v-progress-circular>
+        <div class="loading-text">Generating your Readme...</div>
+      </div>
     </v-overlay>
 
   </v-card>
@@ -90,7 +86,7 @@ export default {
       dialog: false,
       response: '',
       loading: false,
-      timeout: null
+      timeout: null,
     };
   },
 
@@ -101,33 +97,18 @@ export default {
         return; 
       }
 
-      console.log('jai')
-
       this.loading = true;
 
-      this.timeout = setTimeout(() => {
-        alert('Request timed out.');
-      }, 20000); 
+      const resp = await this.doGet('/api/generate', {
+        githubId: this.githubId,
+        repoName: this.repoName,
+        branchName: this.branchName,
+        fileName: this.fileName,
+      });
 
-      try {
-        const resp = await this.doGet('/api/generate', {
-          githubId: this.githubId,
-          repoName: this.repoName,
-          branchName: this.branchName,
-          fileName: this.fileName,
-        });
-
-        console.log('gupta')
-
-        clearTimeout(this.timeout);
-        this.response = resp; 
-        this.dialog = true; 
-      } catch (error) {
-        clearTimeout(this.timeout);
-        alert('An error occurred while fetching the data.');
-      } finally {
-        this.loading = false;
-      }
+      this.response = resp; 
+      this.dialog = true; 
+      this.loading = false;
     },
   },
 };
@@ -139,19 +120,10 @@ export default {
 <style scoped>
 
 .github-form {
-  background-color: #040D21;
+  background-color: #0d1117;
   border-radius: 6px;
   padding: 20px;
   border-radius: 10px !important;
-}
-
-.btn-primary {
-  background-color: #4969ED;
-  color: #fff;
-  border: none;
-  padding: 8px 16px;
-  border-radius: 4px;
-  cursor: pointer;
 }
 
 .button-wrapper {
@@ -163,6 +135,27 @@ export default {
 .white-text-field {
   color: white;
   font-weight: bold;
+}
+
+.loading-overlay {
+  background-color: rgba(0, 0, 0, 0.7) !important;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+}
+
+.loading-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.loading-text {
+  margin-top: 16px;
+  color: white;
+  font-weight: bold;
+  text-align: center;
 }
 
 </style>

@@ -4,7 +4,7 @@
     </main>
   </template>
   
-  <script>
+<script>
   import Readme from '../components/Readme.vue'
   
   export default {
@@ -21,4 +21,4 @@
       return {};
     },
   }
-  </script>
+</script>

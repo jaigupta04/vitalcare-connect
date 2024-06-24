@@ -1,7 +1,7 @@
 <template>
   <v-app>
 
-    <v-app-bar density="compact" color="primary" >
+    <v-app-bar color="#0d1117" >
 
       <router-link to="/" class="mx-4">
         <img
@@ -12,8 +12,8 @@
         />
       </router-link>
 
-      <v-btn :exact="true" variant="flat" :ripple="false" class="ml-4" to="/">Home</v-btn>
-      <v-btn :exact="true" variant="flat" :ripple="false" class="ml-4" to="/about">About</v-btn>
+      <v-btn color="#57606a" rounded="xl" :exact="true" variant="flat" :ripple="false" class="ml-4" to="/">Home</v-btn>
+      <v-btn color="#57606a" rounded="xl" :exact="true" variant="flat" :ripple="false" class="ml-4" to="/about">About</v-btn>
 
       <v-spacer></v-spacer>
 
@@ -21,7 +21,7 @@
 
     </v-app-bar>
 
-    <v-main class="bg-grey">
+    <v-main class="bg-app">
       <v-container fluid>
         <RouterView :doGet="doGet" :doPost="doPost" />
       </v-container>
@@ -156,3 +156,11 @@ export default {
 
 };
 </script>
+
+<style scoped>
+
+.bg-app {
+  background-color: #57606a; 
+}
+
+</style>

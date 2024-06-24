@@ -1,18 +1,9 @@
-// import './style.css'
-
-// import { createApp } from 'vue'
-// import router from './router'
-// import App from './App.vue'
-
-// createApp(App).mount('#app')
-
-
-
 import { createApp } from 'vue'
 import App from './App.vue'
 import router from './router'
 
 // Vuetify
+// import './style.css'
 import 'vuetify/styles'
 import { createVuetify } from 'vuetify'
 import * as components from 'vuetify/components'

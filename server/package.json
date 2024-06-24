@@ -1,6 +1,6 @@
 {
   "name": "readme",
-  "version": "0.1.0",
+  "version": "1.1.0",
   "author": "Gargi, Jai",
   "description": "Readme generator BE",
   "main": "index.js",
