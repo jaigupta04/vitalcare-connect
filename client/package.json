@@ -1,6 +1,6 @@
 {
   "name": "readme-vue",
-  "version": "1.1.0",
+  "version": "1.1.2",
   "description": "Readme generator FE",
   "scripts": {
     "dev": "vite --port 1080",
@@ -9,6 +9,8 @@
   },
   "dependencies": {
     "axios": "^1.7.2",
+    "highlight.js": "^11.9.0",
+    "prismjs": "^1.29.0",
     "vue": "^3.4.27",
     "vue-router": "^4.3.3",
     "vuetify": "^3.6.9"
