@@ -40,21 +40,66 @@
         </v-btn>
       </div>
 
+      <div class="text-center pa-4">
+
+        <v-dialog
+          v-model="dialog"
+          max-width="600"
+          persistent
+        >
+
+          <v-card
+            class="dialog-card"
+            prepend-icon="mdi-alert-circle"
+            title="README.md" 
+          >
+
+            <v-card-text class="dialog-text">
+              <pre><code ref="codeBlock" class="markdown">{{ response }}</code></pre>
+            </v-card-text>
+
+            <v-divider color="white"></v-divider>
+
+            <v-card-actions>
+              <v-spacer></v-spacer>
+
+              <v-btn v-bind="activatorProps" 
+                    class="close-btn"
+                    type="submit" rounded
+                    @click="copyResponse"
+              >
+              <v-icon class="close-icon">mdi-content-copy</v-icon>
+                COPY
+              </v-btn>
+
+              <v-btn v-bind="activatorProps" 
+                    class="close-btn"
+                    type="submit" rounded
+                    @click="dialog = false"
+              >
+              <v-icon class="close-icon">mdi-close-circle-outline</v-icon>
+                CLOSE
+              </v-btn>
+            </v-card-actions>
+
+            <template v-slot:activator="{ props: activatorProps }">
+              <v-spacer></v-spacer>
+              <v-btn v-bind="activatorProps" 
+                    type="submit" color="#26a641" rounded
+                    @click="dialog = false"
+              >
+                Generate README
+              </v-btn>
+            </template>
+
+          </v-card>
+
+        </v-dialog>
+
+      </div>
+
     </v-form>
   </v-card-text>
-
-  <v-dialog v-model="dialog" max-width="500px">
-      <v-card>
-        <v-card-title class="headline">Response</v-card-title>
-        <v-card-text>
-          <pre>{{ response }}</pre>
-        </v-card-text>
-        <v-card-actions>
-          <v-spacer></v-spacer>
-          <v-btn color="primary" text @click="dialog = false">Close</v-btn>
-        </v-card-actions>
-      </v-card>
-    </v-dialog>
 
     <v-overlay :model-value="loading" class="loading-overlay">
       <div class="loading-content">
@@ -69,6 +114,9 @@
 
 
 <script>
+
+import hljs from 'highlight.js';
+import 'highlight.js/styles/github-dark.css';
 
 export default {
 
@@ -108,8 +156,23 @@ export default {
 
       this.response = resp; 
       this.dialog = true; 
+
+      this.$nextTick(() => {
+          this.highlightCode();
+        });
+
       this.loading = false;
     },
+
+    copyResponse() {
+      navigator.clipboard.writeText(this.response);
+      this.dialog = false;
+    },
+
+    highlightCode() {
+      const blocks = this.$refs.codeBlock;
+      hljs.highlightElement(blocks);
+    }
   },
 };
 
@@ -119,15 +182,28 @@ export default {
 
 <style scoped>
 
+.dialog-card {
+  background-color: #161b22;
+  color: white;
+  border-radius: 12px !important;
+  padding-left: 20px;
+  padding-right: 20px;
+  padding-top: 10px;
+}
+
+.dialog-title {
+  background-color: #0d1117;
+  color: white;
+}
+
 .github-form {
   background-color: #0d1117;
-  border-radius: 6px;
   padding: 20px;
-  border-radius: 10px !important;
+  border-radius: 12px !important;
 }
 
 .button-wrapper {
-  margin-top: 15px; 
+  margin-top: 15px !important; 
   display: flex;
   justify-content: center;
 }
@@ -156,6 +232,27 @@ export default {
   color: white;
   font-weight: bold;
   text-align: center;
+}
+
+.close-btn {
+  background-color: #8957e5;
+  color: white !important;
+  margin-bottom: 7px;
+}
+
+.close-icon {
+  margin-right: 4px; 
+}
+
+pre {
+  overflow: auto;
+  background: #161b22;
+  padding: 10px;
+  border-radius: 8px;
+}
+
+code {
+  font-size: 14px;
 }
 
 </style>

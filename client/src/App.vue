@@ -76,9 +76,9 @@ export default {
     }
 
     if(this.session) {
-      this.session = await this.doGet('/api/user/session');
+      // this.session = await this.doGet('/api/user/session');
     } else {
-      this.session = await this.doPost('/api/user/session', { userAgent: navigator.userAgent });
+      // this.session = await this.doPost('/api/user/session', { userAgent: navigator.userAgent });
       document.cookie = `sessionId=${ this.session.id }; path=/;`;
     }
 
