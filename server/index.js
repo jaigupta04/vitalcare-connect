@@ -5,12 +5,12 @@ const app = express();
 
 const Data = require('./data');
 
-// const corsOptions = {
-//   origin: <frontend url>,
-// };
+const corsOptions = {
+  origin: 'https://vitalcare-connect.vercel.app',
+};
 
 app.use(express.json());
-app.use(cors());
+app.use(cors(corsOptions));
 
 
 app.get('/api/test', async (req, res) => {
@@ -46,8 +46,8 @@ app.post('/api/apts', async (req, res) => {
   res.sendStatus(201);
 })
 
-app.listen(3000, () => {
-  console.log('Server is running on port 3000');
-});
+// app.listen(3000, () => {
+//   console.log('Server is running on port 3000');
+// });
 
 module.exports = app;
