@@ -2,7 +2,7 @@
     "rewrites": [
       {
         "source": "/api/:category([^/]+)",
-        "destination": "https://readme-gen-be.vercel.app/api/:category/"
+        "destination": "https://vitalcare-connect-be.vercel.app/api/:category/"
       }
     ]
   }
