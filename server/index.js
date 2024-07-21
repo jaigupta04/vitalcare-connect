@@ -6,7 +6,7 @@ const app = express();
 const Data = require('./data');
 
 const corsOptions = {
-  origin: 'https://vitalcare-connect.vercel.app',
+  origin: 'https://vitalcare-connect.vercel.app/',
 };
 
 app.use(express.json());
