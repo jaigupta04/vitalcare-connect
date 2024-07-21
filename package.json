@@ -7,8 +7,5 @@
     "server": "cd server && npm run dev"
   },
   "author": "Jai Gupta, Kumud Bajaj, Sejal Sinha, Yukta S R",
-  "license": "ISC",
-  "devDependencies": {
-    "base-64": "^1.0.0"
-  }
+  "license": "ISC"
 }
