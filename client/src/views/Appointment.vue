@@ -90,7 +90,7 @@ export default {
   },
 
   async created() {
-    let response = await this.doGet('/api/', {
+    let response = await this.doGet('/api/getall', {
       collection: 'DEPTS'
     });
     

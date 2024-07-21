@@ -101,7 +101,7 @@
       async signup() {
         // Handle the signup logic here
 
-        await this.doPost('/api/', {
+        await this.doPost('/api/signup', {
           firstName: this.firstName,
           lastName: this.lastName,
           dob: this.dob,

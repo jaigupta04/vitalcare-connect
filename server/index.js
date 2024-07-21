@@ -6,7 +6,7 @@ const app = express();
 const Data = require('./data');
 
 const corsOptions = {
-  origin: 'https://vitalcare-connect.vercel.app/',
+  origin: 'https://vitalcare-connect.vercel.app',
 };
 
 app.use(express.json());
@@ -19,7 +19,7 @@ app.get('/api/test', async (req, res) => {
 
 });
 
-app.get('/api/', async (req, res) => {
+app.get('/api/getall', async (req, res) => {
 
   const { collection } = req.query;
 
@@ -28,7 +28,7 @@ app.get('/api/', async (req, res) => {
   res.send(resp);
 });
 
-app.post('/api/', async (req, res) => {
+app.post('/api/signup', async (req, res) => {
   
   const { username, ...data} = req.body;
   

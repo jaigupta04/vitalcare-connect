@@ -75,14 +75,14 @@ export default {
       nurseHeaders: [
         { title: 'ID', value: 'id' },
         { title: 'Name', value: 'name' },
-        { title: 'Department', value: 'department' },
+        { title: 'Department', value: 'did' },
         { title: 'Contact', value: 'contact' },
         { title: 'Mail', value: 'mail' },
       ],
       physicianHeaders: [
         { title: 'ID', value: 'id' },
         { title: 'Name', value: 'name' },
-        { title: 'Department', value: 'department' },
+        { title: 'Department', value: 'did' },
         { title: 'Contact', value: 'contact' },
         { title: 'Mail', value: 'mail' },
       ],
@@ -102,31 +102,38 @@ export default {
     async fetchData() {
 
       // Department
-      let response = await this.doGet('/api/', {
+      let response = await this.doGet('/api/getall', {
         collection: 'DEPTS'
       })
       
       this.departments = response;
 
       // Nurses
-      response = await this.doGet('/api/', {
+      response = await this.doGet('/api/getall', {
         collection: 'NURSES'
       })
 
       this.nurses = response.map(nurse => ({
         ...nurse,
+        did: this.getDepartmentName(nurse.did._path.segments[1]),
         name: `${nurse.fname} ${nurse.lname}`,
       }));
 
       // Physicians
-      response = await this.doGet('/api/', {
+      response = await this.doGet('/api/getall', {
         collection: 'PHYS'
       })
 
       this.physicians = response.map(physician => ({
         ...physician,
+        did: this.getDepartmentName(physician.did._path.segments[1]),
         name: `${physician.fname} ${physician.lname}`,
       }));
+    },
+
+    getDepartmentName(departmentId) {
+      const department = this.departments.find(d => d.id === departmentId);
+      return department ? department.name : '';
     },
   },
 };
