@@ -1,27 +1,28 @@
 <template>
   <v-app>
 
-    <v-app-bar color="#0d1117" >
+    <v-app-bar color="primary" v-if="!$route.meta.hideNavbar">
 
       <router-link to="/" class="mx-4">
         <img
           alt="Logo"
-          src="@/assets/logo.svg"
+          src="@/assets/hospitalLogo.png"
           width="40"
           transition="scale-transition"
         />
       </router-link>
 
-      <v-btn color="#57606a" rounded="xl" :exact="true" variant="flat" :ripple="false" class="ml-4" to="/">Home</v-btn>
-      <v-btn color="#57606a" rounded="xl" :exact="true" variant="flat" :ripple="false" class="ml-4" to="/about">About</v-btn>
+      <v-btn rounded="xl" :exact="true" variant="flat" :ripple="false" class="ml-4" to="/home">Home</v-btn>
+      <v-btn rounded="xl" :exact="true" variant="flat" :ripple="false" class="ml-4" to="/appointment">Appointments</v-btn>
 
       <v-spacer></v-spacer>
+      
+      <v-btn rounded="xl" :exact="true" variant="flat" :ripple="false" class="ml-4" to="/">Logout</v-btn>
 
-      <div ref="GoogleLoginButton" class="mr-4" style="display:none;"></div>
 
     </v-app-bar>
 
-    <v-main class="bg-app">
+    <v-main>
       <v-container fluid>
         <RouterView :doGet="doGet" :doPost="doPost" />
       </v-container>
@@ -54,52 +55,17 @@ export default {
     }
   },
 
-  async mounted() {
-
-    navigator.geolocation.watchPosition(position => {
-      this.location = {
-        coords: {
-          latitude : position.coords.latitude,
-          longitude: position.coords.longitude,
-          accuracy : position.coords.accuracy
-        },
-        timestamp: position.timestamp
-      }
-    });
-
-    for(let cookie of document.cookie.split(';')) {
-      cookie = cookie.trim();
-      if(cookie.startsWith('sessionId=') && cookie != 'sessionId=') {
-        this.session = { id: cookie.substring('sessionId='.length) };
-        break;
-      }
-    }
-
-    if(this.session) {
-      // this.session = await this.doGet('/api/user/session');
-    } else {
-      // this.session = await this.doPost('/api/user/session', { userAgent: navigator.userAgent });
-      document.cookie = `sessionId=${ this.session.id }; path=/;`;
-    }
-
-    if(this.session.status == 'active') {
-      this.$refs['GoogleLoginButton'].style.display = '';
-      window.google.accounts.id.initialize({
-        client_id: '220251834863-p6gimkv0cgepodik4c1s8cs471dv9ioq.apps.googleusercontent.com',
-        callback: async (resp) => {
-          await this.doPost('/api/user/google-login', { idToken: resp.credential });
-          window.location.reload();
-        },
-        auto_select: true
-      });
-      window.google.accounts.id.renderButton(this.$refs['GoogleLoginButton'], {});
-      window.google.accounts.id.prompt();
-    } else if(this.session.status == 'loggedin') {
-      setInterval(() => {
-        this.doPost('/api/user/session/ping', { userAgent: navigator.userAgent, location: this.location });
-      }, 60 * 1000);
-    }
-
+  created() {
+    // Simulate fetching user data
+    this.user = {
+      username: 'admin',
+      firstName: 'John',
+      lastName: 'Doe',
+      dob: '1990-01-01',
+      address: '123 Main St',
+      email: 'john.doe@example.com',
+      contactNumber: '1234567890',
+    };
   },
 
   methods: {
@@ -156,11 +122,3 @@ export default {
 
 };
 </script>
-
-<style scoped>
-
-.bg-app {
-  background-color: #57606a; 
-}
-
-</style>

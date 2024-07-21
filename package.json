@@ -1,8 +1,14 @@
 {
-  "name": "hello-fullStack",
-  "version": "0.0.1",
-  "description": "Full Stack web app template",
-  "scripts": {},
-  "author": "Jai Gupta",
-  "license": "ISC"
+  "name": "vitalcare-connect",
+  "version": "0.1.0",
+  "description": "VitalCare Connect - DBMS Project",
+  "scripts": {
+    "client": "cd client && npm run dev",
+    "server": "cd server && npm run dev"
+  },
+  "author": "Jai Gupta, Kumud Bajaj, Sejal Sinha, Yukta S R",
+  "license": "ISC",
+  "devDependencies": {
+    "base-64": "^1.0.0"
+  }
 }

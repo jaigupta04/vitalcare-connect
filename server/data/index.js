@@ -1,64 +1,40 @@
-const { GoogleGenerativeAI } = require("@google/generative-ai");
-const axios = require('axios');
-const fs = require('fs');
-
 require('dotenv').config();
 
+const admin = require('firebase-admin');
 
-const apiKey = process.env.GEMINI_API_KEY;
-const genAI = new GoogleGenerativeAI(apiKey);
-const model = genAI.getGenerativeModel({ model: "gemini-pro" });
+const serviceAccount = JSON.parse(Buffer.from(process.env.FIREBASE_SERVICE_ACCOUNT, 'base64').toString('utf8'));
 
-function fileWrite(filePath) {
+admin.initializeApp({
+  credential: admin.credential.cert(serviceAccount)
+});
 
-  fs.readFile(filePath, 'utf8', (err, data) => {
-      const lines = data.split('\n');
+const db = admin.firestore();
 
-      if (lines.length > 0) {
-          lines.shift(); 
-      }
-      if (lines.length > 0) {
-          lines.pop(); 
-      }
 
-      const modifiedContent = lines.join('\n');
 
-      fs.writeFile(filePath, modifiedContent, () => {});
-  });
+async function getAll(collection) {
+
+  const snapshot = await db.collection(collection).get();
+  const docs = snapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
+
+  return docs;
 
 }
 
-async function getGithubFileContents(owner, repo, branch, path) {
+async function getSignup(username, data) {
 
-  const url = `https://api.github.com/repos/${owner}/${repo}/contents/${path}?ref=${branch}`;
-
-  const response = await axios.get(url);
-
-  const content = Buffer.from(response.data.content, 'base64').toString('utf-8');
-
-  return content;
+  const ref = db.collection('PROFILES').doc(username);
+  await ref.set(data);
   
 }
 
-async function getReadme(githubId, repoName, branchName, fileName) {
+async function bookApt(data) {
 
-  const fileContent = await getGithubFileContents(githubId, repoName, branchName, fileName)
+  const ref = db.collection('APTS').doc();
+  await ref.set(data);
 
-  const chat = model.startChat(); // Chat session created
-
-  const userInput = `Give markdown code of readme for the following code covering all the function with proper explanation of each function and examples \n ${fileContent}`;
-
-  const result = await chat.sendMessage(userInput);
-  const response = await result.response;
-
-  const botRes = response.text()
-
-  // console.log("Bot:", response.text());
-  // fs.writeFile('./data/README.md', botRes, () => {});
-  // fileWrite('./data/README.md')
-  return botRes;
 }
 
 
 
-module.exports = { getReadme }
+module.exports = { getAll, getSignup, bookApt };
