@@ -28,6 +28,15 @@ app.get('/api/getall', async (req, res) => {
   res.send(resp);
 });
 
+app.get('/api/', async (req, res) => {
+
+  const { collection } = req.query;
+
+  const resp = await Data.getAll(collection);
+
+  res.send(resp);
+});
+
 app.post('/api/signup', async (req, res) => {
   
   const { username, ...data} = req.body;

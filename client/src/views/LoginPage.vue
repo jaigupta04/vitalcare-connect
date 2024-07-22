@@ -61,7 +61,7 @@
     methods: {
       async login() {
 
-        let response = await this.doGet('/api/getall', {
+        let response = await this.doGet('/api/', {
           collection: 'PROFILES'
         })
 
