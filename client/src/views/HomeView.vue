@@ -92,39 +92,31 @@ export default {
   props: {
     doGet: Function,
     doPost: Function,
+    user: Object,
   },
 
-  created() {
-    this.fetchData();
+  async created() {
+    await this.fetchData();
   },
 
   methods: {
     async fetchData() {
 
-      // Department
-      let response = await this.doGet('/api/getall', {
-        collection: 'DEPTS'
-      })
+      let [ Depts, Nurses, Phys ] = await Promise.all([
+        this.doGet('/api/getall', { collection: 'DEPTS' }),
+        this.doGet('/api/getall', { collection: 'NURSES' }),
+        this.doGet('/api/getall', { collection: 'PHYS' }),
+      ]);
       
-      this.departments = response;
+      this.departments = Depts;
 
-      // Nurses
-      response = await this.doGet('/api/getall', {
-        collection: 'NURSES'
-      })
-
-      this.nurses = response.map(nurse => ({
+      this.nurses = Nurses.map(nurse => ({
         ...nurse,
         did: this.getDepartmentName(nurse.did._path.segments[1]),
         name: `${nurse.fname} ${nurse.lname}`,
       }));
 
-      // Physicians
-      response = await this.doGet('/api/getall', {
-        collection: 'PHYS'
-      })
-
-      this.physicians = response.map(physician => ({
+      this.physicians = Phys.map(physician => ({
         ...physician,
         did: this.getDepartmentName(physician.did._path.segments[1]),
         name: `${physician.fname} ${physician.lname}`,

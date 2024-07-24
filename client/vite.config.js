@@ -13,7 +13,8 @@ export default defineConfig({
   },
   server: {
     proxy: {
-      '/api': 'https://vitalcare-connect-be.vercel.app/',
+      // '/api': 'https://vitalcare-connect-be.vercel.app/',
+      '/api': 'http://localhost:3000/',
     }
   }
 });
