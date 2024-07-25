@@ -7,7 +7,7 @@
           <v-card-title>
             <v-row justify="space-between" align="center">
               <h1>{{ isLogin ? 'Login' : 'Sign Up' }}</h1>
-              <v-btn text @click="toggleAuth">{{ isLogin ? 'Sign Up' : 'Login' }}</v-btn>
+              <v-btn rounded text @click="toggleAuth">{{ isLogin ? 'Sign Up' : 'Login' }}</v-btn>
             </v-row>
           </v-card-title>
 
@@ -18,6 +18,7 @@
                 v-if="!isLogin"
                 v-model="firstName"
                 label="First Name"
+                variant="outlined"
                 required
               ></v-text-field>
 
@@ -25,6 +26,7 @@
                 v-if="!isLogin"
                 v-model="lastName"
                 label="Last Name"
+                variant="outlined"
                 required
               ></v-text-field>
 
@@ -33,6 +35,7 @@
                 v-model="dob"
                 label="Date of Birth"
                 type="date"
+                variant="outlined"
                 required
               ></v-text-field>
 
@@ -40,6 +43,7 @@
                 v-if="!isLogin"
                 v-model="address"
                 label="Address"
+                variant="outlined"
                 required
               ></v-text-field>
 
@@ -48,6 +52,7 @@
                 v-model="email"
                 label="Email"
                 type="email"
+                variant="outlined"
                 required
               ></v-text-field>
 
@@ -55,12 +60,14 @@
                 v-if="!isLogin"
                 v-model="contactNumber"
                 label="Contact Number"
+                variant="outlined"
                 required
               ></v-text-field>
 
               <v-text-field
                 v-model="username"
                 label="Username"
+                variant="outlined"
                 required
               ></v-text-field>
 
@@ -68,12 +75,13 @@
                 v-model="password"
                 label="Password"
                 :type="passwordVisible ? 'text' : 'password'"
-                append-icon="mdi-eye"
+                append-inner-icon="mdi-eye"
                 @click:append="togglePasswordVisibility"
+                variant="outlined"
                 required
               ></v-text-field>
 
-              <v-btn type="submit" color="primary">{{ isLogin ? 'Login' : 'Sign Up' }}</v-btn>
+              <v-btn type="submit" color="success" rounded>{{ isLogin ? 'Login' : 'Sign Up' }}</v-btn>
 
             </v-form>
           </v-card-text>

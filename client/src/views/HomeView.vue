@@ -63,9 +63,6 @@
 export default {
   data() {
     return {
-      departments: [],
-      nurses: [],
-      physicians: [],
       departmentHeaders: [
         { title: 'ID', value: 'id' },
         { title: 'Name', value: 'name' },
@@ -93,41 +90,13 @@ export default {
     doGet: Function,
     doPost: Function,
     user: Object,
+    departments: Array,
+    nurses: Array,
+    physicians: Array,
   },
 
-  async created() {
-    await this.fetchData();
-  },
 
-  methods: {
-    async fetchData() {
-
-      let [ Depts, Nurses, Phys ] = await Promise.all([
-        this.doGet('/api/getall', { collection: 'DEPTS' }),
-        this.doGet('/api/getall', { collection: 'NURSES' }),
-        this.doGet('/api/getall', { collection: 'PHYS' }),
-      ]);
-      
-      this.departments = Depts;
-
-      this.nurses = Nurses.map(nurse => ({
-        ...nurse,
-        did: this.getDepartmentName(nurse.did._path.segments[1]),
-        name: `${nurse.fname} ${nurse.lname}`,
-      }));
-
-      this.physicians = Phys.map(physician => ({
-        ...physician,
-        did: this.getDepartmentName(physician.did._path.segments[1]),
-        name: `${physician.fname} ${physician.lname}`,
-      }));
-    },
-
-    getDepartmentName(departmentId) {
-      const department = this.departments.find(d => d.id === departmentId);
-      return department ? department.name : '';
-    },
-  },
+  methods: {},
 };
 
 </script>

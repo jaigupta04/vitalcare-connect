@@ -72,7 +72,6 @@ export default {
     return {
       bookingDate: null,
       bookingTime: null,
-      departments: [],
       department: null,
       appointments: [],
       appointmentHeaders: [
@@ -87,14 +86,7 @@ export default {
   props: {
     doGet: Function,
     doPost: Function,
-  },
-
-  async created() {
-    let response = await this.doGet('/api/getall', {
-      collection: 'DEPTS'
-    });
-    
-    this.departments = response;
+    departments: Array,
   },
 
   methods: {

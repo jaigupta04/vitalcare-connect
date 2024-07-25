@@ -12,7 +12,7 @@
     "axios": "^1.7.2",
     "vue": "^3.4.27",
     "vue-router": "^4.3.3",
-    "vuetify": "^3.6.9"
+    "vuetify": "^3.6.13"
   },
   "devDependencies": {
     "@mdi/font": "^7.4.47",

@@ -52,7 +52,9 @@
         <RouterView 
           v-if="isLoggedIn"
           :doGet="doGet" :doPost="doPost" 
-          :user="user" />
+          :user="user" 
+          :departments="departments" :nurses="nurses" :physicians="physicians"
+        />
       </v-container>
     </v-main>
 
@@ -87,7 +89,14 @@ export default {
       snackbarText: '',
       isLoggedIn: false,
       user: {},
+      departments: [],
+      nurses: [],
+      physicians: [],
     };
+  },
+
+  async created() {
+    await this.fetchData();
   },
 
   methods: {
@@ -134,6 +143,34 @@ export default {
       }
 
       return data;
+    },
+
+    async fetchData() {
+
+      let [ Depts, Nurses, Phys ] = await Promise.all([
+        this.doGet('/api/getall', { collection: 'DEPTS' }),
+        this.doGet('/api/getall', { collection: 'NURSES' }),
+        this.doGet('/api/getall', { collection: 'PHYS' }),
+      ]);
+
+      this.departments = Depts;
+
+      this.nurses = Nurses.map(nurse => ({
+        ...nurse,
+        did: this.getDepartmentName(nurse.did._path.segments[1]),
+        name: `${nurse.fname} ${nurse.lname}`,
+      }));
+
+      this.physicians = Phys.map(physician => ({
+        ...physician,
+        did: this.getDepartmentName(physician.did._path.segments[1]),
+        name: `${physician.fname} ${physician.lname}`,
+      }));
+    },
+
+    getDepartmentName(departmentId) {
+      const department = this.departments.find(d => d.id === departmentId);
+      return department ? department.name : '';
     },
 
     handleLogin(userData) {
