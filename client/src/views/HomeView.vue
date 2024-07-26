@@ -1,54 +1,55 @@
 <template>
   <v-container>
-    <v-row>
-      <v-col cols="12">
-        <v-card>
+    <v-row justify="center">
+      <v-col cols="12" md="10">
+        <v-card rounded elevation="0" class="elevation-10">
 
           <v-card-title>
             <h2>Departments</h2>
           </v-card-title>
 
-          <v-card-text>
+          <v-card-text class="rounded-table">
             <v-data-table-virtual
               :headers="departmentHeaders"
               :items="departments"
-              class="elevation-1"
+              class="elevation-5"
+              rounded
             ></v-data-table-virtual>
           </v-card-text>
           
         </v-card>
       </v-col>
 
-      <v-col cols="12">
-        <v-card>
+      <v-col cols="12" md="10">
+        <v-card rounded elevation="0" class="elevation-10">
 
           <v-card-title>
             <h2>Nurses</h2>
           </v-card-title>
 
-          <v-card-text>
+          <v-card-text class="rounded-table">
             <v-data-table-virtual
               :headers="nurseHeaders"
               :items="nurses"
-              class="elevation-1"
+              class="elevation-5"
             ></v-data-table-virtual>
           </v-card-text>
 
         </v-card>
       </v-col>
 
-      <v-col cols="12">
-        <v-card>
+      <v-col cols="12" md="10">
+        <v-card rounded elevation="0" class="elevation-10">
 
           <v-card-title>
             <h2>Physicians</h2>
           </v-card-title>
 
-          <v-card-text>
+          <v-card-text class="rounded-table">
             <v-data-table-virtual
               :headers="physicianHeaders"
               :items="physicians"
-              class="elevation-1"
+              class="elevation-5"
             ></v-data-table-virtual>
           </v-card-text>
 
@@ -102,5 +103,14 @@ export default {
 </script>
 
 <style scoped>
-/* Add styles if needed */
+
+.v-card {
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.rounded-table {
+  border-radius: 10px;
+}
+
 </style>

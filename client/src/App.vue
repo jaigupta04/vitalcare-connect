@@ -1,7 +1,7 @@
 <template>
   <v-app>
 
-    <v-app-bar color="primary" v-if="isLoggedIn">
+    <v-app-bar class="nav-font" color="primary" v-if="isLoggedIn">
       <v-menu offset-y>
         <template v-slot:activator="{ props }">
           <v-btn
@@ -11,7 +11,7 @@
             <v-icon size="32">mdi-account-circle</v-icon>
           </v-btn>
         </template>
-        <v-list>
+        <v-list class="nav-font">
           <v-list-item>
               <v-list-item-title>{{ user.firstName }} {{ user.lastName }}</v-list-item-title>
               <v-list-item-subtitle>Username: {{ user.id }}</v-list-item-subtitle>
@@ -42,7 +42,7 @@
 
     </v-app-bar>
 
-    <v-main>
+    <v-main class="bg-app">
       <v-container fluid>
         <Auth 
           v-if="!isLoggedIn" 
@@ -185,3 +185,16 @@ export default {
   }
 };
 </script>
+
+<style>
+
+.bg-app {
+  background-color: #F3F7EC; 
+  font-family: 'Plus Jakarta Sans', sans-serif;
+}
+
+.nav-font {
+  font-family: 'Plus Jakarta Sans', sans-serif;
+}
+
+</style>

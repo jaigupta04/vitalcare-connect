@@ -1,8 +1,8 @@
 <template>
-  <v-container>
-    <v-row justify="center">
-      <v-col cols="12" md="6">
-        <v-card>
+  <v-container class="fill-height d-flex align-center justify-center">
+    <v-row justify="center" align="center">
+      <v-col cols="12" md="5">
+        <v-card rounded elevation="20" class="elevation-20">
           
           <v-card-title>
             <v-row justify="space-between" align="center">
@@ -163,5 +163,18 @@ export default {
 </script>
 
 <style scoped>
-/* Add some styles if needed */
+
+.fill-height {
+  height: 100vh;
+}
+
+.v-card {
+  border-radius: 20px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.v-row {
+  margin: 0px !important;
+}
+
 </style>
