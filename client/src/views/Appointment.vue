@@ -84,6 +84,7 @@ export default {
       bookingDate: new Date().toISOString().split('T')[0],
       bookingTime: new Date(),
       department: null,
+      Appointments: [],
       appointments: [],
       appointmentHeaders: [
         { title: 'Date', value: 'date' },
@@ -112,6 +113,11 @@ export default {
       const time = new Date(this.bookingTime);
       return time.toISOString().split('T')[1].substring(0, 5);
     },
+  },
+
+  async mounted() {
+    const Apts = await this.doGet('/api/apts', { profileId: this.user.id});
+    this.appointments = Apts;
   },
 
   methods: {
@@ -147,7 +153,7 @@ export default {
       await this.doPost('/api/apts', appointment);
 
       // Update the appointments array with the new appointment
-      this.appointments.push({
+      this.Appointments.push({
         date: this.convertGMTtoIST(this.bookingDate, 'date'),
         time: this.convertGMTtoIST(this.bookingTime, 'time'),
         department: this.department ? this.getDepartmentName(this.department) : '-',

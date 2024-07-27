@@ -13,7 +13,6 @@ const db = admin.firestore();
 
 
 async function getAll(collection) {
-
   const snapshot = await db.collection(collection).get();
   const docs = snapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
 
@@ -22,19 +21,23 @@ async function getAll(collection) {
 }
 
 async function getSignup(username, data) {
-
   const ref = db.collection('PROFILES').doc(username);
   await ref.set(data);
-  
 }
 
 async function bookApt(data) {
-
   const ref = db.collection('APTS').doc();
   await ref.set(data);
+}
 
+async function getApts(profileId) {
+  const snapshot = await db.collection('APTS').get();
+  const docs = snapshot.docs
+    .map(doc => ({ id: doc.data().pid, ...doc.data() }))
+    .filter(doc => doc.id === profileId);
+
+  return docs;
 }
 
 
-
-module.exports = { getAll, getSignup, bookApt };
+module.exports = { getAll, getSignup, bookApt, getApts };

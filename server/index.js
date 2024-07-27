@@ -13,6 +13,8 @@ app.use(express.json());
 app.use(cors(corsOptions));
 
 
+// GET API
+
 app.get('/api/test', async (req, res) => {
 
   res.send('Hello World!');
@@ -27,6 +29,18 @@ app.get('/api/getall', async (req, res) => {
 
   res.send(resp);
 });
+
+app.get('/api/apts', async (req, res) => {
+
+  const { profileId } = req.query;
+
+  const resp = await Data.getApts(profileId);
+
+  res.send(resp);
+});
+
+
+// POST API
 
 app.post('/api/signup', async (req, res) => {
   
