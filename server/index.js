@@ -60,8 +60,8 @@ app.post('/api/apts', async (req, res) => {
   res.sendStatus(201);
 })
 
-// app.listen(3000, () => {
-//   console.log('Server is running on port 3000');
-// });
+app.listen(3000, () => {
+  console.log('Server is running on port 3000');
+});
 
 module.exports = app;

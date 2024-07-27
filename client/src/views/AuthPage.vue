@@ -76,7 +76,7 @@
                 label="Password"
                 :type="passwordVisible ? 'text' : 'password'"
                 append-inner-icon="mdi-eye"
-                @click:append="togglePasswordVisibility"
+                @click:append-inner="togglePasswordVisibility"
                 variant="outlined"
                 required
               ></v-text-field>

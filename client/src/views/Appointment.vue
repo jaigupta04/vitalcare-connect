@@ -17,10 +17,8 @@
                     v-model="bookingDate"
                     label="Appointment Date"
                     type="date"
-                    :value="formattedDate"
                     required
                     variant="outlined"
-                    outline
                   ></v-text-field>
                 </v-col>
                 <v-col cols="6">
@@ -28,7 +26,6 @@
                     v-model="bookingTime"
                     label="Appointment Time"
                     type="time"
-                    :value="formattedTime"
                     variant="outlined"
                     required
                   ></v-text-field>
@@ -82,7 +79,7 @@ export default {
   data() {
     return {
       bookingDate: new Date().toISOString().split('T')[0],
-      bookingTime: new Date(),
+      bookingTime: new Date().toISOString().split('T')[1].substring(0, 5),
       department: null,
       Appointments: [],
       appointments: [],
@@ -102,49 +99,21 @@ export default {
     user: Object,
   },
 
-  computed: {
-    formattedDate() {
-      // return this.convertGMTtoIST(new Date(this.bookingDate), 'date');
-      const date = new Date(this.bookingDate);
-      return date.toISOString().split('T')[0];
-    },
-    formattedTime() {
-      // return this.convertGMTtoIST(new Date(this.bookingTime), 'time');
-      const time = new Date(this.bookingTime);
-      return time.toISOString().split('T')[1].substring(0, 5);
-    },
-  },
-
   async mounted() {
     const Apts = await this.doGet('/api/apts', { profileId: this.user.id});
-    this.appointments = Apts;
+
+    this.appointments = Apts.map(appointment => ({
+        ...appointment,
+        department: this.getDepartmentName(appointment.did),
+      }));
   },
 
   methods: {
 
-    convertGMTtoIST(date, type) {
-      const options = {
-        timeZone: 'Asia/Kolkata',
-        year: 'numeric',
-        month: '2-digit',
-        day: '2-digit',
-        hour: '2-digit',
-        minute: '2-digit',
-        second: '2-digit',
-      };
-      const formattedDate = new Date(date).toLocaleString('en-US', options);
-
-      if (type === 'date') {
-        return this.bookingDate;
-      } else if (type === 'time') {
-        return formattedDate.split(', ')[1].substring(0, 5);
-      }
-    },
-
     async bookApp() {
       const appointment = {
-        date: this.convertGMTtoIST(this.bookingDate, 'date'),
-        time: this.convertGMTtoIST(this.bookingTime, 'time'),
+        date: this.bookingDate,
+        time: this.bookingTime,
         did: this.department,
         pid: this.user.id,
         status: 'Pending'
@@ -152,17 +121,15 @@ export default {
 
       await this.doPost('/api/apts', appointment);
 
-      // Update the appointments array with the new appointment
-      this.Appointments.push({
-        date: this.convertGMTtoIST(this.bookingDate, 'date'),
-        time: this.convertGMTtoIST(this.bookingTime, 'time'),
+      this.appointments.push({
+        date: this.bookingDate,
+        time: this.bookingTime,
         department: this.department ? this.getDepartmentName(this.department) : '-',
         status: 'Pending'
       });
 
-      // Clear the form fields
       this.bookingDate = new Date().toISOString().split('T')[0];
-      this.bookingTime = formattedTime();
+      this.bookingTime = new Date().toISOString().split('T')[1].substring(0, 5);
       this.department = null;
     },
 
