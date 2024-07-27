@@ -11,16 +11,17 @@
             <v-icon size="32">mdi-account-circle</v-icon>
           </v-btn>
         </template>
-        <v-list class="nav-font">
+        <v-list class="nav-font user-menu">
           <v-list-item>
-              <v-list-item-title>{{ user.firstName }} {{ user.lastName }}</v-list-item-title>
-              <v-list-item-subtitle>Username: {{ user.id }}</v-list-item-subtitle>
-              <v-list-item-subtitle>Date of Birth: {{ user.dob }}</v-list-item-subtitle>
-              <v-list-item-subtitle>Address: {{ user.address }}</v-list-item-subtitle>
-              <v-list-item-subtitle>Email: {{ user.email }}</v-list-item-subtitle>
-              <v-list-item-subtitle>Contact: {{ user.contactNumber }}</v-list-item-subtitle>
+            <v-list-item-title class="user-name">{{ user.firstName }} {{ user.lastName }}</v-list-item-title>
+            <v-list-item-subtitle class="user-info">Username: {{ user.id }}</v-list-item-subtitle>
+            <v-list-item-subtitle class="user-info">Date of Birth: {{ user.dob }}</v-list-item-subtitle>
+            <v-list-item-subtitle class="user-info">Address: {{ user.address }}</v-list-item-subtitle>
+            <v-list-item-subtitle class="user-info">Email: {{ user.email }}</v-list-item-subtitle>
+            <v-list-item-subtitle class="user-info">Contact: {{ user.contactNumber }}</v-list-item-subtitle>
           </v-list-item>
         </v-list>
+
       </v-menu>
 
       <v-btn rounded="xl" :exact="true" variant="flat" :ripple="false" class="ml-4" to="/home">Home</v-btn>
@@ -186,7 +187,26 @@ export default {
 };
 </script>
 
-<style>
+<style scoped>
+
+.user-menu {
+  padding: 6px !important;
+  background-color: white !important;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.8) !important;
+  border-radius: 12px !important;
+}
+
+.user-name {
+  font-size: 1.6rem !important;
+  font-weight: 600 !important;
+  margin-bottom: 8px !important;
+}
+
+.user-info {
+  font-size: 0.9rem !important;
+  color: #464646 !important;
+  margin-bottom: 4px !important;
+}
 
 .bg-app {
   background-color: #F3F7EC; 
